@@ -1,0 +1,25 @@
+{
+  "manifest_version": 2,
+  "short_name": "SOW",
+  "name": "Stack Overflow Watch",
+  "description": "Receive notifications as questions are asked with your tags",
+  "version": "0.0.0.1",
+  "author": "Jordan Cutler",
+  "background": {
+    "scripts": [
+      "event.js"
+    ],
+    "persistent": true
+  },
+  "browser_action": {
+    "default_title": "Show unanswered questions",
+    "default_popup": "popup.html"
+  },
+  "content_scripts": [
+    {
+      "matches": ["*://*/*"],
+      "css": [],
+      "js": ["content.js"]
+    }
+  ]
+}
