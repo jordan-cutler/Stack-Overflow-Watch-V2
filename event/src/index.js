@@ -16,14 +16,14 @@ const API_KEY = "PgIHgWjR5mBZD429EUo6Rw((";
 const SITE = "stackoverflow.com";
 
 const API_URL = 'https://api.stackexchange.com/2.2/questions/unanswered/';
-const QUESTION_LISTENER_INTERVAL = 5000;
+const QUESTION_LISTENER_INTERVAL = 60000;
 const PAGE_SIZE = 10;
 
-
-console.log('hello');
-setInterval(() => {
-  console.log("hai")
-}, 1000);
+//
+// console.log('hello');
+// setInterval(() => {
+//   console.log("hai")
+// }, 1000);
 const beginQuestionListener = () => {
   retrieveQuestionData();
   setInterval(() => {

@@ -1,7 +1,18 @@
 import React from 'react';
-// import './Question.scss';
+ import './Question.css';
 
 const question = (props) => {
+  const questionStyle = {
+    padding: '8px 0',
+    borderBottom: '1px #e5e5e5 solid'
+  };
+
+  const questionList = {
+    overflow: 'hidden',
+    cursor: 'pointer',
+
+  }
+
   return (
     <li className="question">
       <a className="questionLink" href={props.url} target="_blank">

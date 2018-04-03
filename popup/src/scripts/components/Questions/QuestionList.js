@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import Question from './Question/Question';
 import { connect } from 'react-redux';
 
-// import './QuestionList.scss';
+ import './QuestionList.css';
 
 class QuestionList extends Component {
   render() {

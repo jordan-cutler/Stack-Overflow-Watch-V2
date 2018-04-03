@@ -1,6 +1,7 @@
 const path = require('path');
 
 module.exports = {
+  devtool: 'cheap-module-eval-source-map',
 
   entry: [
     './popup/src/scripts/index.js'
@@ -18,16 +19,21 @@ module.exports = {
   },
 
   module: {
-    loaders: [
-      {
-        test: /\.(jsx|js)?$/,
-        loader: 'babel-loader',
-        exclude: /(node_modules)/,
-        include: path.join(__dirname, 'src'),
-        query: {
-          presets: ['es2015', 'react']
-        }
+    rules: [{
+      test: /\.(jsx|js)?$/,
+      loader: 'babel-loader',
+      exclude: /(node_modules)/,
+      include: path.join(__dirname, 'src'),
+      query: {
+        presets: ['es2015', 'react']
       }
-    ]
+    }, {
+      test: /\.css$/,
+      exclude: /(node_modules)/,
+      use: [
+        {loader: 'style-loader'},
+        {loader: 'css-loader'}
+      ]
+    }]
   }
 };
