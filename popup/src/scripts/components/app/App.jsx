@@ -15,6 +15,20 @@ class App extends Component {
       </div>
     );
   }
+
+  componentDidMount() {
+    const displayApp = () => {
+      setTimeout(() => {
+        const style = document.querySelector('#app').style;
+        style.display = 'block';
+        setTimeout(() => {
+          style.opacity = 1;
+        });
+      }, 100);
+    };
+    displayApp();
+
+  }
 }
 
 const mapStateToProps = (state) => {
