@@ -1,13 +1,18 @@
-import React, { Component } from 'react';
+import React from 'react';
 import Question from './Question/Question';
 import { connect } from 'react-redux';
+import Pagination from '../Pagination/Pagination';
 
- import './QuestionList.css';
+import './QuestionList.css';
 
-class QuestionList extends Component {
+class QuestionList extends React.Component {
   render() {
     console.log('entered render');
-    const questionList = this.props.questions.map(question => {
+    const start = (this.props.pageNumber - 1) * this.props.questionsPerPage;
+    const questions = [...this.props.questions].slice(start, (start + this.props.questionsPerPage));
+    console.log('start=', start);
+    console.log('question list', questions);
+    const questionList = questions.map(question => {
       return (
         <Question
           key={question.question_id}
@@ -21,16 +26,21 @@ class QuestionList extends Component {
     });
 
     return (
-      <ul className="questions">
-        {questionList}
-      </ul>
+      <div>
+        <ul className="questions">
+          {questionList}
+        </ul>
+        <Pagination />
+      </div>
     );
   }
 }
 
 const mapStateToProps = (state) => {
   return {
-    questions: state.questions.questions
+    questions: state.questions.questions,
+    pageNumber: state.questions.activePageNumber,
+    questionsPerPage: state.questions.questionsPerPage
   };
 };
 

@@ -17,13 +17,8 @@ const SITE = "stackoverflow.com";
 
 const API_URL = 'https://api.stackexchange.com/2.2/questions/unanswered/';
 const QUESTION_LISTENER_INTERVAL = 60000;
-const PAGE_SIZE = 10;
+const PAGE_SIZE = 20;
 
-//
-// console.log('hello');
-// setInterval(() => {
-//   console.log("hai")
-// }, 1000);
 const beginQuestionListener = () => {
   retrieveQuestionData();
   setInterval(() => {
@@ -32,7 +27,7 @@ const beginQuestionListener = () => {
 };
 
 const retrieveQuestionData = () => {
-  console.log(store.getState());
+  console.log('store state=',store.getState());
   store.getState().questions.tagGroups.forEach(tagGroup => {
     axios
       .get(API_URL + createQueryByTags(tagGroup.wantedTags))
@@ -50,6 +45,11 @@ const updateQuestionsListFromApiResponse = (questionsResponse, tagGroupUsed) => 
     type: actionTypes.UPDATE_QUESTIONS,
     questions: listSortedByMostRecentQuestions
   });
+  if (listSortedByMostRecentQuestions.length > 0) {
+    chrome.browserAction.setBadgeText({ text: '' + listSortedByMostRecentQuestions.length });
+  } else {
+    chrome.browserAction.setBadgeText({ text: '' });
+  }
 };
 
 const getNewQuestionsWithoutUnwantedTags = (questionsResponse, tagGroupUsed) => {

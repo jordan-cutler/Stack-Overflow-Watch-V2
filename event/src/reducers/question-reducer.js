@@ -7,21 +7,30 @@ const initialState = {
       wantedTags: ['scala'],
       unwantedTags: ['apache-spark']
     },
-    {
-      wantedTags: ['scala', 'java'],
-      unwantedTags: ['apache-spark']
-    }
+    // {
+    //   wantedTags: ['scala', 'java'],
+    //   unwantedTags: ['apache-spark']
+    // }
   ],
-  archivedQuestionIds: []
+  archivedQuestionIds: [],
+  activePageNumber: 1,
+  questionsPerPage: 7
 };
 
 export default (state = initialState, action) => {
   switch (action.type) {
     case actionTypes.UPDATE_QUESTIONS:
-      const newState = Object.assign({}, state, {
+      return Object.assign({}, state, {
         questions: action.questions
       });
-      return newState;
+    case actionTypes.INCREMENT_PAGE_NUMBER:
+      return Object.assign({}, state, {
+        activePageNumber: state.activePageNumber + 1
+      });
+    case actionTypes.DECREMENT_PAGE_NUMBER:
+      return Object.assign({}, state, {
+        activePageNumber: state.activePageNumber - 1
+      });
     // case actionTypes.ADD_TAG_GROUP:
     //   return {
     //     ...oldState,
