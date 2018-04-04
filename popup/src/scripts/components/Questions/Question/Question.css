@@ -24,3 +24,9 @@
     text-overflow: ellipsis;
     font-size: 14px;
 }
+
+.list-group-item {
+    border-left: none !important;
+    border-right: none !important;
+    border-radius: 0 !important;
+}

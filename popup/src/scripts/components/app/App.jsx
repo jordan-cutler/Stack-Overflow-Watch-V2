@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
- import './App.css';
+import './App.css';
 import QuestionList from '../Questions/QuestionList';
+import { Grid } from 'react-bootstrap';
 
 class App extends Component {
   constructor(props) {
@@ -10,9 +11,9 @@ class App extends Component {
 
   render() {
     return (
-      <div className="App">
+      <Grid className="App">
         <QuestionList/>
-      </div>
+      </Grid>
     );
   }
 
@@ -32,7 +33,7 @@ class App extends Component {
 }
 
 const mapStateToProps = (state) => {
-  return {}
+  return {};
 };
 
 export default connect(mapStateToProps)(App);

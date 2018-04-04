@@ -2,7 +2,7 @@ import React from 'react';
 import Question from './Question/Question';
 import { connect } from 'react-redux';
 import Pagination from '../Pagination/Pagination';
-
+import { Col, ListGroup, Row } from 'react-bootstrap';
 import './QuestionList.css';
 
 class QuestionList extends React.Component {
@@ -27,10 +27,21 @@ class QuestionList extends React.Component {
 
     return (
       <div>
-        <ul className="questions">
-          {questionList}
-        </ul>
-        <Pagination />
+        <Row className="title-row">
+          <Col xs={6}>
+            <span className="title"><span className="title-name">Stack Overflow</span> <i className="material-icons">remove_red_eye</i></span>
+          </Col>
+          <Col xsOffset={9}>
+            <Pagination/>
+          </Col>
+        </Row>
+        <Row>
+          <Col xs={12} className="questionsCol">
+            <ListGroup>
+              {questionList}
+            </ListGroup>
+          </Col>
+        </Row>
       </div>
     );
   }
