@@ -32,7 +32,7 @@ class QuestionList extends React.Component {
             <span className="title-name">Stack Overflow&nbsp;&nbsp;</span>
             <i className="material-icons" id="title-icon">remove_red_eye</i>
           </Col>
-          <Col xsOffset={8}>
+          <Col xs={6}>
             <Pagination/>
           </Col>
         </Row>

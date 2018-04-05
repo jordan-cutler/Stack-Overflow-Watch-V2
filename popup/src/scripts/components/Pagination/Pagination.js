@@ -5,34 +5,39 @@ import * as actionTypes from '../../../../../event/src/actions/actions';
 import PageLeft from '../../../assets/page_left.svg';
 import PageRight from '../../../assets/page_right.svg';
 import './Pagination.css';
+import { Row, Col } from 'react-bootstrap';
 
 class Pagination extends Component {
 
   render() {
-    const spacing = {
-      marginRight: '10px'
-    };
+    // const spacing = {
+    //   marginRight: '10px'
+    // };
     return (
-      <div>
-        <span className="light-gray" style={spacing}>
+      <Row>
+        <Col xs={5} id="currentPageInfoCol">
+          <span className="light-gray">
           {this.props.questionsPerPage * this.props.pageNumber - (this.props.questionsPerPage - 1)}-
-          {this.props.questionsPerPage * this.props.pageNumber} of {this.props.questions.length}
-        </span>
-        <ButtonGroup>
-          <Button
-            disabled={this.props.pageNumber === 1}
-            onClick={this.props.onDecrementPageNumber}
-          >
-            <img src={PageLeft} className="nav-button-image" alt="Left"/>
-          </Button>
-          <Button
-            disabled={this.props.questions.length <= (this.props.pageNumber * this.props.questionsPerPage)}
-            onClick={this.props.onIncrementPageNumber}
-          >
-            <img src={PageRight} className="nav-button-image" alt="Right"/>
-          </Button>
-        </ButtonGroup>
-      </div>
+            {this.props.questionsPerPage * this.props.pageNumber} of {this.props.questions.length}
+          </span>
+        </Col>
+        <Col xs={7}>
+          <ButtonGroup>
+            <Button
+              disabled={this.props.pageNumber === 1}
+              onClick={this.props.onDecrementPageNumber}
+            >
+              <img src={PageLeft} className="nav-button-image" alt="Left"/>
+            </Button>
+            <Button
+              disabled={this.props.questions.length <= (this.props.pageNumber * this.props.questionsPerPage)}
+              onClick={this.props.onIncrementPageNumber}
+            >
+              <img src={PageRight} className="nav-button-image" alt="Right"/>
+            </Button>
+          </ButtonGroup>
+        </Col>
+      </Row>
     );
   }
 
