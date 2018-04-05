@@ -15,13 +15,13 @@ class Pagination extends Component {
     // };
     return (
       <Row>
-        <Col xs={5} id="currentPageInfoCol">
+        <Col xs={5} xsPush={2} id="currentPageInfoCol">
           <span className="light-gray">
           {this.props.questionsPerPage * this.props.pageNumber - (this.props.questionsPerPage - 1)}-
             {this.props.questionsPerPage * this.props.pageNumber} of {this.props.questions.length}
           </span>
         </Col>
-        <Col xs={7}>
+        <Col xs={6} xsOffset={1}>
           <ButtonGroup>
             <Button
               className="nav-button"
