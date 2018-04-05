@@ -8,7 +8,7 @@ const initialState = {
       unwantedTags: ['apache-spark']
     },
     {
-      wantedTags: ['java'],
+      wantedTags: ['php'],
       unwantedTags: []
     }
     // {

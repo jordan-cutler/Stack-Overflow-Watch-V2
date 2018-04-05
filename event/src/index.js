@@ -18,7 +18,8 @@ const SITE = "stackoverflow.com";
 const API_URL = 'https://api.stackexchange.com/2.2/questions/unanswered/';
 const QUESTION_LISTENER_INTERVAL = 60000;
 const MAX_PAGE_SIZE = 99;
-
+const AMOUNT_TO_GET_PER_TAG_GROUP = 5;
+const MAX_QUESTIONS_TO_DISPLAY = 99;
 const beginQuestionListener = () => {
   retrieveQuestionData();
   setInterval(() => {
@@ -38,21 +39,24 @@ const retrieveQuestionData = () => {
 };
 
 const updateQuestionsListFromApiResponse = (questionsResponse, tagGroupUsed) => {
+  console.log('questionslength:', questionsResponse.length);
+  console.log('taggroup', tagGroupUsed);
   const newQuestions = getNewQuestionsWithoutUnwantedTags(questionsResponse, tagGroupUsed);
-  const updatedList = [...newQuestions, ...store.getState().questions.questions];
-  const listSortedByMostRecentQuestions = sortQuestionsMostRecentCreation(updatedList);
-  const truncatedQuestions = listSortedByMostRecentQuestions.slice(0, 99);
-  const questionsWithTagsReplaced = truncatedQuestions.map(question => {
+  const questionsWithTagsReplaced = newQuestions.map(question => {
     return Object.assign({}, question, {
       tags: tagGroupUsed.wantedTags
     })
   });
+  const updatedList = [...questionsWithTagsReplaced.slice(0, AMOUNT_TO_GET_PER_TAG_GROUP), ...store.getState().questions.questions];
+  const listSortedByMostRecentQuestions = sortQuestionsMostRecentCreation(updatedList);
+  const truncatedQuestions = listSortedByMostRecentQuestions.slice(0, MAX_QUESTIONS_TO_DISPLAY);
+  console.log('questionswithtagsreplaces:',questionsWithTagsReplaced);
   store.dispatch({
     type: actionTypes.UPDATE_QUESTIONS,
-    questions: questionsWithTagsReplaced
+    questions: truncatedQuestions
   });
-  if (questionsWithTagsReplaced.length > 0) {
-    chrome.browserAction.setBadgeText({ text: '' + questionsWithTagsReplaced.length });
+  if (truncatedQuestions.length > 0) {
+    chrome.browserAction.setBadgeText({ text: '' + truncatedQuestions.length });
   } else {
     chrome.browserAction.setBadgeText({ text: '' });
   }
@@ -70,7 +74,7 @@ const getNewQuestionsWithoutUnwantedTags = (questionsResponse, tagGroupUsed) => 
 };
 
 const createQueryByTags = (tags) => {
-  return `?site=${SITE}&order=desc&sort=creation&tagged=${tags.join(';')}&pagesize=${Math.trunc(MAX_PAGE_SIZE/store.getState().questions.tagGroups.length)}&key=${API_KEY}`;
+  return `?site=${SITE}&order=desc&sort=creation&tagged=${tags.join(';')}&pagesize=${MAX_PAGE_SIZE}&key=${API_KEY}`;
 };
 
 const sortQuestionsMostRecentCreation = (questions) => {
