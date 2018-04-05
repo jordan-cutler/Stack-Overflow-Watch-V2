@@ -13,14 +13,13 @@ ul {
     list-style-type: none;
 }
 
-/*.paginationCol {*/
-    /*margin-left: 77%;*/
-/*}*/
-
-.title {
+.title-name {
     font-size: 20px;
+    color: green;
 }
 
-.title-name {
-    color: green;
+#title-icon {
+    font-size: 20px;
+    vertical-align: middle;
+    margin-bottom: 5px;
 }

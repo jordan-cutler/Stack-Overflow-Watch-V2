@@ -29,9 +29,10 @@ class QuestionList extends React.Component {
       <div>
         <Row className="title-row">
           <Col xs={6}>
-            <span className="title"><span className="title-name">Stack Overflow</span> <i className="material-icons">remove_red_eye</i></span>
+            <span className="title-name">Stack Overflow&nbsp;&nbsp;</span>
+            <i className="material-icons" id="title-icon">remove_red_eye</i>
           </Col>
-          <Col xsOffset={9}>
+          <Col xsOffset={8}>
             <Pagination/>
           </Col>
         </Row>
