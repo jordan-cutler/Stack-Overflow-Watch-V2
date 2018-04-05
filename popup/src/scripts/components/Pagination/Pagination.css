@@ -6,3 +6,8 @@
 #currentPageInfoCol {
     margin-top: 5px;
 }
+
+.nav-button {
+    font-size: 0 !important;
+    padding: 5px 8px !important;
+}

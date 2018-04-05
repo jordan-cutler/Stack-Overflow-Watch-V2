@@ -12,6 +12,7 @@
     "persistent": true
   },
   "browser_action": {
+    "default_icon": "ic_remove_red_eye_black_18dp_1x.png",
     "default_title": "Show unanswered questions",
     "default_popup": "popup.html"
   },

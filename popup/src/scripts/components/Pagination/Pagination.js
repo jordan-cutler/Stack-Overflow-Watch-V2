@@ -24,12 +24,14 @@ class Pagination extends Component {
         <Col xs={7}>
           <ButtonGroup>
             <Button
+              className="nav-button"
               disabled={this.props.pageNumber === 1}
               onClick={this.props.onDecrementPageNumber}
             >
               <img src={PageLeft} className="nav-button-image" alt="Left"/>
             </Button>
             <Button
+              className="nav-button"
               disabled={this.props.questions.length <= (this.props.pageNumber * this.props.questionsPerPage)}
               onClick={this.props.onIncrementPageNumber}
             >
