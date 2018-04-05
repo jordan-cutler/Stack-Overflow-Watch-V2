@@ -7,6 +7,10 @@ const initialState = {
       wantedTags: ['scala'],
       unwantedTags: ['apache-spark']
     },
+    {
+      wantedTags: ['java'],
+      unwantedTags: []
+    }
     // {
     //   wantedTags: ['scala', 'java'],
     //   unwantedTags: ['apache-spark']

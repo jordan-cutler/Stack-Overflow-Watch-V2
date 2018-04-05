@@ -10,15 +10,15 @@ import { Row, Col } from 'react-bootstrap';
 class Pagination extends Component {
 
   render() {
-    // const spacing = {
-    //   marginRight: '10px'
-    // };
+    const bottomOfPageQuestionNumber = this.props.questionsPerPage * this.props.pageNumber;
+
+    const endQuestionNumber = Math.min(bottomOfPageQuestionNumber, this.props.questions.length);
+    const startQuestionNumber = bottomOfPageQuestionNumber - (this.props.questionsPerPage - 1);
     return (
       <Row>
         <Col xs={5} xsPush={2} id="currentPageInfoCol">
           <span className="light-gray">
-          {this.props.questionsPerPage * this.props.pageNumber - (this.props.questionsPerPage - 1)}-
-            {this.props.questionsPerPage * this.props.pageNumber} of {this.props.questions.length}
+          {startQuestionNumber}-{endQuestionNumber} of {this.props.questions.length}
           </span>
         </Col>
         <Col xs={6} xsOffset={1}>

@@ -17,7 +17,7 @@ const SITE = "stackoverflow.com";
 
 const API_URL = 'https://api.stackexchange.com/2.2/questions/unanswered/';
 const QUESTION_LISTENER_INTERVAL = 60000;
-const PAGE_SIZE = 20;
+const MAX_PAGE_SIZE = 99;
 
 const beginQuestionListener = () => {
   retrieveQuestionData();
@@ -41,12 +41,18 @@ const updateQuestionsListFromApiResponse = (questionsResponse, tagGroupUsed) => 
   const newQuestions = getNewQuestionsWithoutUnwantedTags(questionsResponse, tagGroupUsed);
   const updatedList = [...newQuestions, ...store.getState().questions.questions];
   const listSortedByMostRecentQuestions = sortQuestionsMostRecentCreation(updatedList);
+  const truncatedQuestions = listSortedByMostRecentQuestions.slice(0, 99);
+  const questionsWithTagsReplaced = truncatedQuestions.map(question => {
+    return Object.assign({}, question, {
+      tags: tagGroupUsed.wantedTags
+    })
+  });
   store.dispatch({
     type: actionTypes.UPDATE_QUESTIONS,
-    questions: listSortedByMostRecentQuestions
+    questions: questionsWithTagsReplaced
   });
-  if (listSortedByMostRecentQuestions.length > 0) {
-    chrome.browserAction.setBadgeText({ text: '' + listSortedByMostRecentQuestions.length });
+  if (questionsWithTagsReplaced.length > 0) {
+    chrome.browserAction.setBadgeText({ text: '' + questionsWithTagsReplaced.length });
   } else {
     chrome.browserAction.setBadgeText({ text: '' });
   }
@@ -64,7 +70,7 @@ const getNewQuestionsWithoutUnwantedTags = (questionsResponse, tagGroupUsed) => 
 };
 
 const createQueryByTags = (tags) => {
-  return `?site=${SITE}&order=desc&sort=creation&tagged=${tags.join(';')}&pagesize=${PAGE_SIZE}&key=${API_KEY}`;
+  return `?site=${SITE}&order=desc&sort=creation&tagged=${tags.join(';')}&pagesize=${Math.trunc(MAX_PAGE_SIZE/store.getState().questions.tagGroups.length)}&key=${API_KEY}`;
 };
 
 const sortQuestionsMostRecentCreation = (questions) => {

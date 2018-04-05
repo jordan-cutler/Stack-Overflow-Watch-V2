@@ -11,7 +11,8 @@ const question = (props) => {
 
       <div className="more">
         <span className="creationDate">Asked {formatDate(new Date(props.creationTime))} by</span>
-        <span className="owner">{props.owner} ({props.ownerReputation})</span>
+        <span className="owner">{props.owner}&nbsp;</span>
+        <span className="tags">[{props.tags.join(', ')}]</span>
       </div>
     </ListGroupItem>
   );
